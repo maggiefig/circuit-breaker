@@ -13,13 +13,6 @@ import (
 )
 
 func main() {
-	hystrix.ConfigureCommand("test", hystrix.CommandConfig{
-		SleepWindow:           3,
-		Timeout:               1000,
-		MaxConcurrentRequests: 100,
-		ErrorPercentThreshold: 50,
-	})
-
 	useCep := true
 
 	if useCep {
@@ -27,19 +20,19 @@ func main() {
 			// Hystrix open logic is to open the circuit after an % of errors
 			ConfigureOpener: cepHystrix.ConfigureOpener{
 				// We change the default to wait for 20 requests, before checking to close (default)
-				RequestVolumeThreshold: 20,
-				// The default values match what hystrix does by default
+				RequestVolumeThreshold:   20,
+				ErrorThresholdPercentage: 50,
 			},
 			// Hystrix close logic is to sleep then check
 			ConfigureCloser: cepHystrix.ConfigureCloser{
-				SleepWindow: 3,
+				SleepWindow: time.Millisecond * 3,
 			},
 		}
 
 		h := circuit.Manager{
 			DefaultCircuitProperties: []circuit.CommandPropertiesConstructor{configuration.Configure},
 		}
-		c := h.MustCreateCircuit("test", circuit.Config{})
+		c := h.MustCreateCircuit("test")
 
 		counter := 0
 		start := time.Now()
@@ -51,6 +44,13 @@ func main() {
 		fmt.Println(time.Since(start).Milliseconds())
 		fmt.Println("total", counter)
 	} else {
+		hystrix.ConfigureCommand("test", hystrix.CommandConfig{
+			SleepWindow:           3,
+			Timeout:               1000,
+			MaxConcurrentRequests: 100,
+			ErrorPercentThreshold: 50,
+		})
+
 		counter := 0
 		start := time.Now()
 
