@@ -1,0 +1,13 @@
+# github.com/afex/hystrix-go v0.0.0-20180502004556-fa1af6a1f4f5
+## explicit
+github.com/afex/hystrix-go/hystrix
+github.com/afex/hystrix-go/hystrix/metric_collector
+github.com/afex/hystrix-go/hystrix/rolling
+# github.com/cep21/circuit/v3 v3.2.2
+## explicit
+github.com/cep21/circuit/v3
+github.com/cep21/circuit/v3/closers/hystrix
+github.com/cep21/circuit/v3/faststats
+github.com/cep21/circuit/v3/internal/evar
+# github.com/smartystreets/goconvey v1.7.2
+## explicit
