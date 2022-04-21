@@ -11,3 +11,6 @@ github.com/cep21/circuit/v3/faststats
 github.com/cep21/circuit/v3/internal/evar
 # github.com/smartystreets/goconvey v1.7.2
 ## explicit
+# github.com/zenthangplus/goccm v0.0.0-20211005163543-2f2e522aca15
+## explicit
+github.com/zenthangplus/goccm
